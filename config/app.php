@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Darryldecode\Cart\CartServiceProvider::class,
+        App\Services\Ajax\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -228,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
+        'Ajax' => \App\Services\Ajax\Facade\Ajax::class,
 
     ],
 

@@ -22,3 +22,16 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('product', App\Http\Controllers\ProductController::class);
+
+Route::get('cart', function (){
+    $data = Cart::getContent();
+    return View('cart.index', compact('data'));
+})->name('cart');
+
+Route::get('/add/{id}',[App\Http\Controllers\CartController::class, 'addItem'])->name('add.item');
+
+Route::get( '/clearCart', [App\Http\Controllers\CartController::class, 'clear'])->name('clearCart');
+
+Route::get('/remove/{id}',[App\Http\Controllers\CartController::class, 'deleteItem'])->name('remove.item');
+
+Route::get('/sub/{id}',[App\Http\Controllers\CartController::class, 'subItem'])->name('sub.item');

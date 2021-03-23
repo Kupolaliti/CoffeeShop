@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +26,9 @@ Route::resource('product', App\Http\Controllers\ProductController::class);
 
 Route::get('cart', function (){
     $data = Cart::getContent();
-    return View('cart.index', compact('data'));
+    $id = Auth::user()->id;
+    $adresses = DB::select('select * from public.adresses where user_id = ?', [$id]);
+    return View('cart.index', compact('data'), compact('adresses'));
 })->name('cart');
 
 Route::get('/add/{id}',[App\Http\Controllers\CartController::class, 'addItem'])->name('add.item');
@@ -35,3 +38,9 @@ Route::get( '/clearCart', [App\Http\Controllers\CartController::class, 'clear'])
 Route::get('/remove/{id}',[App\Http\Controllers\CartController::class, 'deleteItem'])->name('remove.item');
 
 Route::get('/sub/{id}',[App\Http\Controllers\CartController::class, 'subItem'])->name('sub.item');
+
+Route::resource('order', App\Http\Controllers\OrderController::class);
+
+Route::post('save/{id}', [App\Http\Controllers\OrderController::class, 'save'])->name('saveOrder');
+
+Route::resource('adress', App\Http\Controllers\AdressController::class);

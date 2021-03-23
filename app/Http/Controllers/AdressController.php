@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Adress;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class AdressController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::get();
-        return View('product.index', compact('products'));
+        $adresses = Adress::get();
+        return View('adress.index', compact('adresses'));
     }
 
     /**
@@ -25,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return View('product.create');
+        return View('adress.create');
     }
 
     /**
@@ -36,8 +36,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create($request->all());
-        return Redirect('product');
+        Adress::create($request->all());
+        return Redirect('adress');
     }
 
     /**
@@ -48,10 +48,10 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
+        $adress = Adress::find($id);
 
-        return View('product.show')
-            ->with('product', $product);
+        return View('adress.show')
+            ->with('adress', $adress);
     }
 
     /**
@@ -62,10 +62,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
+        $adress = Adress::find($id);
         // show the edit form and pass the shark
 //       dd($product, $categories);
-        return View('product.create')->with('product', $product);
+        return View('adress.create')->with('adress', $adress);
     }
 
     /**
@@ -75,10 +75,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  Product $product)
+    public function update(Request $request, Adress $adress)
     {
-        $product->update($request->only(['name', 'price', 'description', 'picture', 'picture']));
-        return redirect()->route('product.index');
+        $adress->update($request->only(['state', 'city', 'postCode', 'adressLine', 'user_id']));
+        return redirect()->route('adress.index');
     }
 
     /**
@@ -87,9 +87,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Adress $adress)
     {
-        $product->delete();
-        return \Ajax::redirect(route('product.index'));
+        $adress->delete();
+        return \Ajax::redirect(route('adress.index'));
     }
 }

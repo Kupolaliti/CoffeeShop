@@ -2,38 +2,7 @@
 
 @section('content')
 <div class="container" style="align-items: center">
-{{--    <table>--}}
-{{--        <thead>--}}
-{{--        <tr>--}}
-{{--            <th>Название</th>--}}
-{{--            <th>Цена</th>--}}
-{{--            <th>Описание</th>--}}
-{{--            <th>Категория</th>--}}
-{{--        </tr>--}}
-{{--        </thead>--}}
-{{--        <tbody>--}}
 
-{{--        @foreach($products as $product)--}}
-{{--            <tr>--}}
-{{--                <td>{{$product->name}}</td>--}}
-{{--                <td>{{$product->price}}</td>--}}
-{{--                <td>{{$product->description}}</td>--}}
-{{--                <td>{{$product->category_name}}</td>--}}
-{{--            </tr>--}}
-{{--        @endforeach--}}
-{{--    </table>--}}
-{{--    @foreach($products as $product)--}}
-{{--    <div class="thumbnail">--}}
-{{--        <div class="labels">--}}
-{{--        </div>--}}
-{{--        <img src="{{$product->picture}}" alt="{{$product->name}}">--}}
-{{--        <div class="caption">--}}
-{{--            <h3>{{$product->name}}</h3>--}}
-{{--            <p>{{$product->price}}</p>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--    @endforeach--}}
-{{--    <table>--}}
 
     <div class="row">
         @foreach($products as $product)

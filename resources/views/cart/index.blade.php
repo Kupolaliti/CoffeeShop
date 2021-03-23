@@ -34,15 +34,13 @@
                 @endforeach
 
 
-        </table>
-
+        </table> @if (Auth::check())
             <label for="adress_id">Адрес</label>
             <select id="adress_id" name="adress_id" style="display: block; margin-bottom: 10px">
                 <option value="{{ $adresses[0]->id }}"> {{ $adresses[0]->adressLine }} </option>
             </select>
             <h4>Общая цена: {{\Cart::getTotal()}}</h4><br>
         <div class="row">
-            @if (Auth::check())
 
                 <form method="POST" action="{{route('saveOrder', $adresses[0]->id)}}">
                     <a href="{{route('clearCart')}}" class="btn red ajax">Очистить корзину</a>

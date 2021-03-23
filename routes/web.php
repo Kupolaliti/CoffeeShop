@@ -26,9 +26,14 @@ Route::resource('product', App\Http\Controllers\ProductController::class);
 
 Route::get('cart', function (){
     $data = Cart::getContent();
-    $id = Auth::user()->id;
-    $adresses = DB::select('select * from public.adresses where user_id = ?', [$id]);
+    if (Auth::user() != null){
+        $id = Auth::user()->id;
+        $adresses = DB::select('select * from public.adresses where user_id = ?', [$id]);
     return View('cart.index', compact('data'), compact('adresses'));
+    }
+    else{
+        return View('cart.index', compact('data'));
+    }
 })->name('cart');
 
 Route::get('/add/{id}',[App\Http\Controllers\CartController::class, 'addItem'])->name('add.item');

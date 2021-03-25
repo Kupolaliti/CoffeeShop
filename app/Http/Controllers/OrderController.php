@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use phpDocumentor\Reflection\Element;
 
 class OrderController extends Controller
 {
@@ -120,9 +121,15 @@ class OrderController extends Controller
     {
 
         $countOrders = DB::table('orders')
-            ->select(DB::raw('count(*)'))
+            ->select(DB::raw('sum(amount)'))
             ->where('orders.user_id','=', Auth::user()->id)
+            ->groupBy('orders.user_id')
             ->get();
+        if($countOrders[0]->sum != 0) {
+            $order = Order::create(['user_id'=>Auth::user()->id, 'amount'=>\Cart::getTotal() - \Cart::getTotal()/100*($countOrders[0]->sum > 5000 ? 5 : 1), 'adress_id'=>$id]);
+        }else{
+            $order = Order::create(['user_id'=>Auth::user()->id, 'amount'=>\Cart::getTotal(), 'adress_id'=>$id]);
+        }
 //        if ($countOrders[0]->count != 0){
 //            $order = Order::create(['user_id'=>Auth::user()->id, 'amount'=>\Cart::getTotal() - \Cart::getTotal()/100*$countOrders[0]->count]);
 //        }elseif ($countOrders[0]->count*0.2 > 20){
@@ -130,15 +137,12 @@ class OrderController extends Controller
 //        }else{
 //            $order = Order::create(['user_id'=>Auth::user()->id, 'amount'=>\Cart::getTotal()]);
 //        }
-        $order = Order::create(['user_id'=>Auth::user()->id, 'amount'=>\Cart::getTotal(), 'adress_id'=>$id]);
 
         $goods = \Cart::getContent();
 
         foreach ($goods as $good ){
-            if ($countOrders[0]->count != 0){
-                ProductOrder::create(['order_id'=>$order->id, 'product_id'=>$good->id, 'quantity'=>$good->quantity, 'price'=>$good->price - $good->price/100*$countOrders[0]->count]);
-            }elseif ($countOrders[0]->count*0.2 > 20){
-                ProductOrder::create(['order_id'=>$order->id, 'product_id'=>$good->id, 'quantity'=>$good->quantity, 'price'=>$good->price - $good->price/100*20]);
+            if ($countOrders[0]->sum != 0){
+                ProductOrder::create(['order_id'=>$order->id, 'product_id'=>$good->id, 'quantity'=>$good->quantity, 'price'=>$good->price - $good->price/100*($countOrders[0]->sum > 5000 ? 5 : 1)]);
             }else{
                 ProductOrder::create(['order_id'=>$order->id, 'product_id'=>$good->id, 'quantity'=>$good->quantity, 'price'=>$good->price]);
             }

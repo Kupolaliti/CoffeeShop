@@ -2,10 +2,12 @@
 
 @section('content')
 <div class="container" style="align-items: center">
-    <table>
+    <table class="table">
         <thead>
         <tr>
+            @if (Auth::check())
             <th>Имя пользователя</th>
+            @endif
             <th>Область</th>
             <th>Город</th>
             <th>Индекс</th>
@@ -16,7 +18,9 @@
 
             @foreach($adresses as $adress)
                 <tr>
+                    @if (Auth::check())
                     <td>{{Auth::user()->name}}</td>
+                    @endif
                     <td>{{$adress->state}}</td>
                     <td>{{$adress->city}}</td>
                     <td>{{$adress->postCode}}</td>

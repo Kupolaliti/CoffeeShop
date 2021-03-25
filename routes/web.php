@@ -29,7 +29,12 @@ Route::get('cart', function (){
     if (Auth::user() != null){
         $id = Auth::user()->id;
         $adresses = DB::select('select * from public.adresses where user_id = ?', [$id]);
-    return View('cart.index', compact('data'), compact('adresses'));
+        $countOrders = DB::table('orders')
+            ->select(DB::raw('sum(amount)'))
+            ->where('orders.user_id','=', Auth::user()->id)
+            ->groupBy('orders.user_id')
+            ->get();
+    return View('cart.index', compact('data', 'adresses'), [ 'countOrders' => $countOrders]);
     }
     else{
         return View('cart.index', compact('data'));

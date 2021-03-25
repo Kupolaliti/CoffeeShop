@@ -34,7 +34,11 @@ Route::get('cart', function (){
             ->where('orders.user_id','=', Auth::user()->id)
             ->groupBy('orders.user_id')
             ->get();
-    return View('cart.index', compact('data', 'adresses'), [ 'countOrders' => $countOrders]);
+
+        if (sizeof($countOrders) != 0){
+            return View('cart.index', compact('data', 'adresses'), [ 'countOrders' => $countOrders]);
+        }
+    return View('cart.index', compact('data', 'adresses'));
     }
     else{
         return View('cart.index', compact('data'));

@@ -40,7 +40,10 @@
             </select>
             <h4>Общая цена: {{\Cart::getTotal()}}</h4><br>
 
-                <h3>Вы потратили в магазине: {{$countOrders[0]->sum}} руб. Ваша скидка {{$countOrders[0]->sum > 5000 ? 10 : 0}}%</h3>
+            @if (isset($countOrders))
+                <h3>Вы потратили в магазине: {{$countOrders[0]->sum}} руб. Ваша скидка {{$countOrders[0]->sum > 5000 ? 5 : 0}}%</h3>
+                <p>При общей сумме покупок 5000 руб скидка составит 5%</p>
+            @endif
         <div class="row">
 
                 <form method="POST" action="{{route('saveOrder', $adresses[0]->id)}}">

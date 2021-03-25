@@ -125,8 +125,8 @@ class OrderController extends Controller
             ->where('orders.user_id','=', Auth::user()->id)
             ->groupBy('orders.user_id')
             ->get();
-        if($countOrders[0]->sum != 0) {
-            $order = Order::create(['user_id'=>Auth::user()->id, 'amount'=>\Cart::getTotal() - \Cart::getTotal()/100*($countOrders[0]->sum > 5000 ? 5 : 1), 'adress_id'=>$id]);
+        if(sizeof($countOrders) != 0 && $countOrders[0]->sum != 0) {
+            $order = Order::create(['user_id'=>Auth::user()->id, 'amount'=>\Cart::getTotal() - \Cart::getTotal()/100*($countOrders[0]->sum > 5000 ? 5 : 0), 'adress_id'=>$id]);
         }else{
             $order = Order::create(['user_id'=>Auth::user()->id, 'amount'=>\Cart::getTotal(), 'adress_id'=>$id]);
         }
@@ -141,8 +141,9 @@ class OrderController extends Controller
         $goods = \Cart::getContent();
 
         foreach ($goods as $good ){
-            if ($countOrders[0]->sum != 0){
-                ProductOrder::create(['order_id'=>$order->id, 'product_id'=>$good->id, 'quantity'=>$good->quantity, 'price'=>$good->price - $good->price/100*($countOrders[0]->sum > 5000 ? 5 : 1)]);
+            if (sizeof($countOrders) != 0 && $countOrders[0]->sum != 0){
+//
+                ProductOrder::create(['order_id'=>$order->id, 'product_id'=>$good->id, 'quantity'=>$good->quantity, 'price'=>$good->price - $good->price/100*($countOrders[0]->sum > 5000 ? 5 : 0)]);
             }else{
                 ProductOrder::create(['order_id'=>$order->id, 'product_id'=>$good->id, 'quantity'=>$good->quantity, 'price'=>$good->price]);
             }

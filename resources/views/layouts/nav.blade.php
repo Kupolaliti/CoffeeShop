@@ -41,13 +41,13 @@
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">Войти</a>
                             </li>
                         @endif
 
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
                             </li>
                         @endif
                     @else
@@ -63,7 +63,7 @@
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    Выйти
                                 </a>
 
 
@@ -78,7 +78,7 @@
             </div>
         </div>
     </nav>
-    <main class="py-4">
+    <main>
         @yield('content')
     </main>
 </div>

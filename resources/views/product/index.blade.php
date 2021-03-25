@@ -1,9 +1,9 @@
 @extends('layouts.nav')
 
 @section('content')
-<div class="container" style="align-items: center">
+<div class="container" style="align-items: center; margin-top: 20px">
 
-
+<h3>Каталог товаров</h3>
     <div class="row">
         @foreach($products as $product)
 {{--            <tr>--}}

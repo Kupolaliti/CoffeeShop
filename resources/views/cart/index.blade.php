@@ -1,7 +1,7 @@
 @extends('layouts.nav')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="margin-top: 20px">
         <h3>Корзина</h3>
         @if(sizeof(\Cart::getContent()) != 0)
         <table class="table">

@@ -1,7 +1,7 @@
 @extends('layouts.nav')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="margin-top: 30px">
         <h4>Создание товара</h4>
         <form method="POST" @if (isset($product)) action="{{ route('product.update', $product) }}"
               @else
@@ -35,10 +35,10 @@
                 <input class="form-control" id="picture" rows="3" name="picture" value="{{ old('picture', isset($product) ? $product->picture : null) }}">
             </div>
 
-            <div class="row">
-                <button class="btn waves-effect waves-light green" type="submit"
+
+            <button class="btn btn-success" type="submit"
                         name="action">{{ isset($product) ? 'Обновить' : 'Добавить' }}</button>
-            </div>
+
         </form>
     </div>
 @endsection

@@ -1,7 +1,8 @@
 @extends('layouts.nav')
 
 @section('content')
-<div class="container" style="align-items: center">
+<div class="container" style="align-items: center; margin-top: 30px">
+    <h3>Адреса</h3>
     <table class="table">
         <thead>
         <tr>
@@ -29,10 +30,10 @@
                         @if (Auth::check() && Auth::user()->admin == true)
                             <td class="center">
                                 <form method="POST" action="{{ route('adress.destroy', $adress) }}">
-                                    <a href="{{ route('adress.edit', $adress) }}" class="btn green">Редактировать</a>
+                                    <a href="{{ route('adress.edit', $adress) }}" class="btn btn-warning">Редактировать</a>
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <button class="btn red ajax" type="submit" name="action">Удалить</button>
+                                    <button class="btn btn-danger ajax" type="submit" name="action">Удалить</button>
                                 </form>
                             </td>
                         @endif

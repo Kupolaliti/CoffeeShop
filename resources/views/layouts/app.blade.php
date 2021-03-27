@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: coral;">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img class="d-inline-block align-top" style="max-height: 25px" src="https://psv4.userapi.com/c536132/u62958763/docs/d38/8fc10a742991/Logo.png?extra=-fQqTEu66EILFqX2pa-v-4N-YZJ1oCfXPQPhboTJ62io-DKIgvMHq-v0QWZgnF8EXSqfeKOGweFwHQB3nVdinFjHR73fLmvLZH8UyIjrvfza1ZBgaF-TJ-o73jAlweWlyBP15TaXY8v5D_Yfbkab">
+                    <img class="d-inline-block align-top" style="max-height: 25px" src="<?= asset('images/logo.png') ?>">
                     CoffeeShop
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

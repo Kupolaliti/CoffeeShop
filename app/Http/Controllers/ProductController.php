@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -91,5 +93,31 @@ class ProductController extends Controller
     {
         $product->delete();
         return \Ajax::redirect(route('product.index'));
+    }
+
+    public function getCatalog(){
+        $products = Product::get();
+        return View('catalog', compact('products'));
+    }
+
+    public function showCart(){
+        $data = \Cart::getContent();
+        if (Auth::user() != null){
+            $id = Auth::user()->id;
+            $adresses = DB::select('select * from public.adresses where user_id = ?', [$id]);
+            $countOrders = DB::table('orders')
+                ->select(DB::raw('sum(amount)'))
+                ->where('orders.user_id','=', Auth::user()->id)
+                ->groupBy('orders.user_id')
+                ->get();
+
+            if (sizeof($countOrders) != 0){
+                return View('cart.index', compact('data', 'adresses'), [ 'countOrders' => $countOrders]);
+            }
+            return View('cart.index', compact('data', 'adresses'));
+        }
+        else{
+            return View('cart.index', compact('data'));
+        }
     }
 }

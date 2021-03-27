@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -24,26 +25,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('product', App\Http\Controllers\ProductController::class);
 
-Route::get('cart', function (){
-    $data = Cart::getContent();
-    if (Auth::user() != null){
-        $id = Auth::user()->id;
-        $adresses = DB::select('select * from public.adresses where user_id = ?', [$id]);
-        $countOrders = DB::table('orders')
-            ->select(DB::raw('sum(amount)'))
-            ->where('orders.user_id','=', Auth::user()->id)
-            ->groupBy('orders.user_id')
-            ->get();
-
-        if (sizeof($countOrders) != 0){
-            return View('cart.index', compact('data', 'adresses'), [ 'countOrders' => $countOrders]);
-        }
-    return View('cart.index', compact('data', 'adresses'));
-    }
-    else{
-        return View('cart.index', compact('data'));
-    }
-})->name('cart');
+Route::get('cart', [App\Http\Controllers\ProductController::class, 'showCart'])->name('cart');
 
 Route::get('/add/{id}',[App\Http\Controllers\CartController::class, 'addItem'])->name('add.item');
 
@@ -58,3 +40,5 @@ Route::resource('order', App\Http\Controllers\OrderController::class);
 Route::post('save/{id}', [App\Http\Controllers\OrderController::class, 'save'])->name('saveOrder');
 
 Route::resource('adress', App\Http\Controllers\AdressController::class);
+
+Route::get('/catalog', [App\Http\Controllers\ProductController::class, 'getCatalog']);

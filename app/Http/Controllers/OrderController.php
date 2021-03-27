@@ -151,6 +151,7 @@ class OrderController extends Controller
         }
 
         \Cart::clear();
-        return Redirect('cart');
+        return View('cart.index')->with('answer', true);
+//        Redirect('cart', ['answer' => true]);
     }
 }

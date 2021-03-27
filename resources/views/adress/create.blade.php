@@ -1,9 +1,9 @@
 @extends('layouts.nav')
 
 @section('content')
-
-    <div class="container">
-        <h4>Создание товара</h4>
+    @if(Auth::user() != null)
+        <div class="container" style="margin-top: 20px">
+        <h4>Создание адреса</h4>
         <form method="POST" @if (isset($adress)) action="{{ route('adress.update', $adress) }}"
               @else
               action="{{ route('adress.store') }}" @endif>
@@ -34,17 +34,18 @@
             {{--                    <textarea name="description" id="description" class="materialize-textarea form-control" data-length="120">{{ old('description', isset($product) ? $product->description : null) }}</textarea>--}}
             {{--                </div>--}}
             {{--            </div>--}}
-            <label for="user_id">Категория товара</label>
+            <label for="user_id">Пользователь</label>
             <select id="user_id" name="user_id" style="display: block; margin-bottom: 10px">
-                <option selected value="{{ old('user_id', isset($adress) ? $adress->user_id : null) }}">{{isset($adress) ? Auth::user()->name : null}}</option>
-                <option value="{{ Auth::user()->id }}"> {{ Auth::user()->name }} </option>
+                <option value="{{ old('user_id', isset($adress) ? $adress->user_id : Auth::user()->id) }}">{{isset($adress) ? Auth::user()->name : Auth::user()->name}}</option>
+{{--                <option value="{{ Auth::user()->id }}"> {{ Auth::user()->name }} </option>--}}
             </select>
 
-            <div class="row">
-                <button class="btn waves-effect waves-light green" type="submit"
+{{--            <div class="row">--}}
+                <button class="btn btn-success" type="submit"
                         name="action">{{ isset($adress) ? 'Обновить' : 'Добавить' }}</button>
-            </div>
+{{--            </div>--}}
         </form>
     </div>
+    @endif
 @endsection
 

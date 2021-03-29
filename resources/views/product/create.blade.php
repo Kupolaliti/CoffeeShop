@@ -11,16 +11,25 @@
             <div class="form-group">
                 <label for="name">Название</label>
                 <input class="form-control" type="text" id="name" name="name" value="{{ old('name', isset($product) ? $product->name : null) }}">
+                @error('name')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="price">Цена</label>
                 <input class="form-control" type="text" id="price" name="price" value="{{ old('price', isset($product) ? $product->price : null) }}">
+                @error('price')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="description">Описание</label>
                 <input class="form-control" type="text" id="description" name="description" value="{{ old('description', isset($product) ? $product->description : null) }}">
+                @error('description')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             {{--            <div class="form-group">--}}
@@ -33,6 +42,9 @@
             <div class="form-group">
                 <label for="picture">Изображение</label>
                 <input class="form-control" id="picture" rows="3" name="picture" value="{{ old('picture', isset($product) ? $product->picture : null) }}">
+                @error('picture')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
 

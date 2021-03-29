@@ -12,24 +12,36 @@
                 <label for="state">Область</label>
                 <input class="form-control" type="text" id="state" name="state"
                        value="{{ old('state', isset($adress) ? $adress->state : null) }}">
+                @error('state')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="city">Город</label>
                 <input class="form-control" type="text" id="city" name="city"
                        value="{{ old('city', isset($adress) ? $adress->city : null) }}">
+                @error('city')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="postCode">Индекс</label>
                 <input class="form-control" type="text" id="postCode" name="postCode"
                        value="{{ old('postCode', isset($adress) ? $adress->postCode : null) }}">
+                @error('postCode')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="adressLine">Адрес</label>
                 <input class="form-control" type="text" id="adressLine" name="adressLine"
                        value="{{ old('adressLine', isset($adress) ? $adress->adressLine : null) }}">
+                @error('adressLine')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
             {{--            <div class="form-group">--}}
             {{--                <div class="input-field">--}}
@@ -57,6 +69,9 @@
                     @endforeach
                     @endif
                 </select>
+                    @error('user_id')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
             @else
                 <div class="form-group">
@@ -75,6 +90,9 @@
                         <option selected value="{{Auth::user()->id}}">{{Auth::user()->name }}</option>
                     @endif
                 </select>
+                    @error('user_id')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
             @endif
             {{--            <div class="row">--}}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdressRequest;
 use App\Models\Adress;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class AdressController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdressRequest $request)
     {
 
         Adress::create($request->all());
@@ -85,7 +86,7 @@ class AdressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Adress $adress)
+    public function update(AdressRequest $request, Adress $adress)
     {
         $adress->update($request->only(['state', 'city', 'postCode', 'adressLine', 'user_id']));
         if (Auth::user()->admin == true){

@@ -24,10 +24,10 @@ class AdressRequest extends FormRequest
     public function rules()
     {
         return [
-            'state'=>'required|max:50px',
-            'city'=>'required|max:50px',
+            'state'=>'required|max:50',
+            'city'=>'required|max:50',
             'postCode'=>'required|digits:6',
-            'adressLine'=>'required|max:70px',
+            'adressLine'=>'required|max:70',
             'user_id'=>'required',
         ];
     }

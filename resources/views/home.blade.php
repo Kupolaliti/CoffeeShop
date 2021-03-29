@@ -14,7 +14,36 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    Ваши адреса:
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                @if (Auth::check())
+                                    <th>Имя пользователя</th>
+                                @endif
+                                <th>Область</th>
+                                <th>Город</th>
+                                <th>Индекс</th>
+                                <th>Адрес</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @foreach($adresses as $adress)
+                                <tr>
+
+                                            <td><a href="{{route('adress.edit', $adress->id)}}">{{Auth::user()->name}}</a></td>
+
+                                    <td>{{$adress->state}}</td>
+                                    <td>{{$adress->city}}</td>
+                                    <td>{{$adress->postCode}}</td>
+                                    <td>{{$adress->adressLine}}</td>
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+                        </table>
                 </div>
             </div>
         </div>

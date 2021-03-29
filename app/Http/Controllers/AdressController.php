@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Adress;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdressController extends Controller
 {
@@ -15,7 +17,8 @@ class AdressController extends Controller
     public function index()
     {
         $adresses = Adress::get();
-        return View('adress.index', compact('adresses'));
+        $users = User::get();
+        return View('adress.index', compact('adresses', 'users'));
     }
 
     /**
@@ -25,7 +28,8 @@ class AdressController extends Controller
      */
     public function create()
     {
-        return View('adress.create');
+        $users = User::get();
+        return View('adress.create', compact('users'));
     }
 
     /**
@@ -36,8 +40,13 @@ class AdressController extends Controller
      */
     public function store(Request $request)
     {
+
         Adress::create($request->all());
-        return Redirect('adress');
+        if (Auth::user()->admin == true){
+            return Redirect('adress');
+        }else{
+            return Redirect('/home');
+        }
     }
 
     /**
@@ -65,7 +74,8 @@ class AdressController extends Controller
         $adress = Adress::find($id);
         // show the edit form and pass the shark
 //       dd($product, $categories);
-        return View('adress.create')->with('adress', $adress);
+        $users = User::get();
+        return View('adress.create', ['users'=>$users])->with('adress', $adress);
     }
 
     /**
@@ -78,7 +88,12 @@ class AdressController extends Controller
     public function update(Request $request, Adress $adress)
     {
         $adress->update($request->only(['state', 'city', 'postCode', 'adressLine', 'user_id']));
-        return redirect()->route('adress.index');
+        if (Auth::user()->admin == true){
+            return redirect()->route('adress.index');
+        }else{
+            return redirect()->route('home');
+        }
+
     }
 
     /**

@@ -3,9 +3,9 @@
 @section('content')
     <div class="container" style="margin-top: 30px">
         <h4>Создание товара</h4>
-        <form method="POST" @if (isset($product)) action="{{ route('product.update', $product) }}"
+        <form  @if (isset($product)) action="{{ route('product.update', $product) }}"
               @else
-              action="{{ route('product.store') }}" @endif>
+              action="{{ route('product.store') }}" @endif  method="POST">
             {{ isset($product) ? method_field('PUT') : method_field('POST') }}
             {{ csrf_field() }}
             <div class="form-group">

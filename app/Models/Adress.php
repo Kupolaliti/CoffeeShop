@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Adress extends Model
 {
     use HasFactory;
-    protected $fillable = ['state', 'city', 'postCode', 'adressLine', 'user_id'];
+    protected $fillable = [
+        'state', 'city', 'postCode', 'adressLine', 'user_id'
+    ];
 }

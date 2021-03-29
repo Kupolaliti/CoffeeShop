@@ -3,6 +3,7 @@
 @section('content')
 <div class="container" style="align-items: center; margin-top: 30px">
     <h3>Адреса</h3>
+    <a href="{{ route('adress.create') }}" class="btn btn-success" style="margin-bottom: 10px">Создать</a>
     <table class="table">
         <thead>
         <tr>
@@ -19,9 +20,11 @@
 
             @foreach($adresses as $adress)
                 <tr>
-                    @if (Auth::check())
-                    <td>{{Auth::user()->name}}</td>
-                    @endif
+                    @foreach($users as $user)
+                        @if ($user->id == $adress->user_id)
+                            <td>{{$user->name}}</td>
+                        @endif
+                    @endforeach
                     <td>{{$adress->state}}</td>
                     <td>{{$adress->city}}</td>
                     <td>{{$adress->postCode}}</td>

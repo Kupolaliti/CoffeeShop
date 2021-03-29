@@ -69,7 +69,7 @@
                 @endif
             @else
                 <a href="{{route('clearCart')}}" class="btn btn-danger ajax">Очистить корзину</a>
-                <h4 style="margin-top: 10px">Для заказа авторизуйтесь или зарегестрируйтесь!</h4>
+                <h4 style="margin-top: 10px">Для заказа авторизуйтесь или зарегистрируйтесь!</h4>
                 <a href="{{ route('login') }}" class="btn btn-info">Авторизация</a>
                 <a href="{{ route('register') }}" class="btn btn-info">Регистрация</a>
             @endif

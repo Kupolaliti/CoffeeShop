@@ -34,11 +34,16 @@ class HomeController extends Controller
             ->orderBy('orders.created_at', 'asc')
             ->get();
 
+        $adresses = DB::table('adresses')
+            ->select(DB::raw('*'))
+            ->where('adresses.user_id','=', Auth::user()->id)
+            ->get();
+
         $products = DB::table('product_orders')
             ->select(DB::raw('product_orders.order_id, product_orders.product_id, product_orders.quantity, products.name, products.price, product_orders.price as sellPrice'))
             ->leftJoin('products','product_orders.product_id','=','products.id')
             ->get();
 
-        return View('home', compact('data', 'products'));
+        return View('home', compact('data', 'products', 'adresses'));
     }
 }
